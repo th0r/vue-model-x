@@ -1,0 +1,14 @@
+{
+  "presets": [
+    ["@babel/preset-env", {
+      "modules": "commonjs",
+      "useBuiltIns": false,
+      "loose": true,
+      "forceAllTransforms": true
+    }]
+  ],
+  "plugins": [
+    "@babel/plugin-proposal-decorators",
+    ["@babel/plugin-proposal-class-properties", {"loose": true}]
+  ]
+}

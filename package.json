@@ -1,0 +1,46 @@
+{
+  "name": "vue-model-x",
+  "version": "0.1.0",
+  "description": "MobX-like state management library for Vue.js",
+  "main": "./dist/vue-model-x.js",
+  "module": "./dist/vue-model-x.esm.js",
+  "scripts": {
+    "build": "rm -rf dist && rollup -c",
+    "publish": "npm run build && npm test",
+    "test": "mocha --require @babel/register"
+  },
+  "keywords": [
+    "vue",
+    "model",
+    "mobx",
+    "reactive",
+    "state",
+    "management",
+    "lib"
+  ],
+  "author": "th0r",
+  "license": "ISC",
+  "peerDependencies": {
+    "vue": "^2.5.16"
+  },
+  "devDependencies": {
+    "@babel/core": "7.0.0-beta.42",
+    "@babel/plugin-proposal-class-properties": "7.0.0-beta.42",
+    "@babel/plugin-proposal-decorators": "7.0.0-beta.42",
+    "@babel/preset-env": "7.0.0-beta.42",
+    "@babel/register": "7.0.0-beta.42",
+    "babel-eslint": "8.2.2",
+    "chai": "4.1.2",
+    "eslint": "4.19.1",
+    "eslint-config-th0r": "1.0.1",
+    "karma": "2.0.0",
+    "karma-mocha": "1.3.0",
+    "mocha": "5.0.5",
+    "rollup": "0.57.1",
+    "rollup-plugin-babel": "4.0.0-beta.0",
+    "vue": "^2.5.16"
+  },
+  "files": [
+    "dist/*.*"
+  ]
+}
