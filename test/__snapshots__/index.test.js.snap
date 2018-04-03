@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`@computed should throw when it's not a getter 1`] = `"Foo#bar is not a getter so it can't be used as computed property"`;
+
+exports[`vue components component's computed properties should react on changes in model's computed: after change 1`] = `
+<div>
+  ID: a-b-true First name: a Adult: true
+</div>
+`;
+
+exports[`vue components component's computed properties should react on changes in model's computed: before change 1`] = `
+<div>
+  ID: a-b-false First name: a Adult: false
+</div>
+`;
+
+exports[`vue components component's computed properties should react on changes in model's observables: after change 1`] = `
+<div>
+  ID: a-norris-false First name: a Adult: false
+</div>
+`;
+
+exports[`vue components component's computed properties should react on changes in model's observables: before change 1`] = `
+<div>
+  ID: a-b-false First name: a Adult: false
+</div>
+`;
+
+exports[`vue components should react on changes in computed: after change 1`] = `
+<div>
+  ID: a-b-true First name: a Adult: true
+</div>
+`;
+
+exports[`vue components should react on changes in computed: before change 1`] = `
+<div>
+  ID: a-b-false First name: a Adult: false
+</div>
+`;
+
+exports[`vue components should react on changes in observables: after change 1`] = `
+<div>
+  ID: john-b-false First name: John Adult: false
+</div>
+`;
+
+exports[`vue components should react on changes in observables: before change 1`] = `
+<div>
+  ID: a-b-false First name: a Adult: false
+</div>
+`;

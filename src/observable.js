@@ -44,7 +44,11 @@ export function observable(proto, name, descriptor) {
 
 function defineReactiveProperty(obj, name, value, originalPropertyDescriptor) {
   // Defining original property
-  originalPropertyDescriptor.configurable = true;
+  Object.assign(originalPropertyDescriptor, {
+    configurable: true,
+    writable: true,
+    value
+  });
   Object.defineProperty(obj, name, originalPropertyDescriptor);
   // Converting it to reactive
   defineReactive(obj, name, value);

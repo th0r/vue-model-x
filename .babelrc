@@ -6,5 +6,20 @@
       "loose": true,
       "forceAllTransforms": true
     }]
-  ]
+  ],
+  "env": {
+    "test": {
+      "presets": [
+        ["@babel/preset-env", {
+          "targets": {
+            "node": "current"
+          }
+        }]
+      ],
+      "plugins": [
+        "@babel/plugin-proposal-decorators",
+        ["@babel/plugin-proposal-class-properties", {"loose": true}]
+      ]
+    }
+  }
 }
