@@ -1,6 +1,7 @@
 import {Dep, Watcher} from './vue-internals';
 
 const computedWatchers = Symbol('computedWatchers');
+/* istanbul ignore next */
 const noop = () => {};
 
 export function computed(prototype, getterName, descriptor) {

@@ -3,6 +3,11 @@ import {Dep, defineReactive} from './vue-internals';
 const observableValues = Symbol('observableValues');
 
 export function observable(proto, name, descriptor) {
+  Object.assign(descriptor, {
+    configurable: true,
+    writable: true
+  });
+
   const reactiveDescriptor = {
     configurable: true,
     enumerable: true,
@@ -42,14 +47,9 @@ export function observable(proto, name, descriptor) {
   return reactiveDescriptor;
 }
 
-function defineReactiveProperty(obj, name, value, originalPropertyDescriptor) {
+function defineReactiveProperty(obj, name, value, originalDescriptor) {
   // Defining original property
-  Object.assign(originalPropertyDescriptor, {
-    configurable: true,
-    writable: true,
-    value
-  });
-  Object.defineProperty(obj, name, originalPropertyDescriptor);
+  Object.defineProperty(obj, name, originalDescriptor);
   // Converting it to reactive
   defineReactive(obj, name, value);
 }

@@ -50,6 +50,13 @@ const createComponent = (Comp = UserComponent, user = createUser()) => {
 describe('@observable', () => {
   beforeEach(createUser);
 
+  test('should return initial value', () => {
+    class Test {
+      @observable foo = 'bar';
+    }
+    expect(new Test().foo).toBe('bar');
+  });
+
   test('should not list unassigned observables in `Object.keys`', () => {
     const user = new User();
     expect(Object.keys(user)).toEqual([]);
