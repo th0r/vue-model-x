@@ -6,8 +6,7 @@
   "module": "./dist/vue-model-x.esm.js",
   "scripts": {
     "build": "rm -rf dist && rollup -c",
-    "prepare": "npm run build",
-    "prepublishOnly": "npm test",
+    "prepublishOnly": "npm run build && npm test",
     "test": "jest"
   },
   "keywords": [
