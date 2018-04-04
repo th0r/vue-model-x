@@ -1,23 +1,23 @@
 import {observable, computed, VueModel} from '../src';
 import {mount} from '@vue/test-utils';
-import {createRenderer} from 'vue-server-renderer';
-
-const renderer = createRenderer();
-
-function render(component) {
-  return renderer.renderToString(component.vm);
-}
 
 class User extends VueModel {
   @observable firstName;
   @observable lastName;
   @observable age;
+  // Non-reactive property
+  roles = [];
 
   constructor(data) {
-    super(data);
+    super();
+    this.update(data);
   }
 
   @computed get isAdult() {
+    return this._getIsAdult();
+  }
+
+  _getIsAdult() {
     return this.age >= 18;
   }
 }
@@ -25,9 +25,10 @@ class User extends VueModel {
 const UserComponent = {
   template: `
     <div>
-      ID: {{ id }}
-      First name: {{ user.firstName }}
-      Adult: {{ user.isAdult }}
+      ID: <span id="id">{{ id }}</span>
+      First name: <span id="firstName">{{ user.firstName }}</span>
+      Adult: <span id="isAdult">{{ user.isAdult ? 'yes' : 'no' }}</span>
+      Roles: <span id="roles">{{ user.roles.join(', ') }}</span>
     </div>
   `,
 
@@ -42,9 +43,14 @@ const UserComponent = {
 
 let user;
 let comp;
-const createUser = () => user = new User({firstName: 'a', lastName: 'b', age: 10});
-const createComponent = (Comp = UserComponent, user = createUser()) => {
-  comp = mount(Comp, {propsData: {user}});
+const createUser = () => user = new User({
+  firstName: 'Chuck',
+  lastName: 'Norris',
+  age: 50,
+  roles: ['karate-god']
+});
+const createComponent = (user = createUser()) => {
+  comp = mount(UserComponent, {propsData: {user}});
 };
 
 describe('@observable', () => {
@@ -59,34 +65,48 @@ describe('@observable', () => {
 
   test('should not list unassigned observables in `Object.keys`', () => {
     const user = new User();
-    expect(Object.keys(user)).toEqual([]);
+    expect(Object.keys(user)).toEqual(['roles']);
   });
 
   test('should list assigned observables in `Object.keys`', () => {
-    expect(Object.keys(user)).toEqual(['firstName', 'lastName', 'age']);
+    expect(Object.keys(user)).toEqual(['roles', 'firstName', 'lastName', 'age']);
   });
 });
 
 describe('@computed', () => {
   beforeEach(createUser);
 
+  test('should return computed value', function () {
+    expect(user.isAdult).toBe(true);
+  });
+
   test('should not be enumerable', () => {
-    expect(user.isAdult).toBe(false);
     expect(Object.keys(user)).not.toContain('isAdult');
   });
 
-  test('should return computed value', function () {
-    expect(user.isAdult).toBe(false);
-  });
-
   test('should cache computed value if in reactive context', function () {
-    expect(user.isAdult).toBe(false);
+    const user = createUser();
+    const isAdultGetter = user._getIsAdult = jest.fn(user._getIsAdult.bind(user));
+    createComponent(user);
+    expect(isAdultGetter).toHaveBeenCalledTimes(1);
+    comp.vm.$forceUpdate();
+    expect(isAdultGetter).toHaveBeenCalledTimes(1);
+    user.firstName = 'Foo';
+    expect(isAdultGetter).toHaveBeenCalledTimes(1);
+    user.age = 17;
+    expect(isAdultGetter).toHaveBeenCalledTimes(2);
   });
 
   test('should not cache computed value if not in reactive context', function () {
-    expect(user.isAdult).toBe(false);
-    user.age = 20;
+    const user = createUser();
+    const isAdultGetter = user._getIsAdult = jest.fn(user._getIsAdult.bind(user));
     expect(user.isAdult).toBe(true);
+    expect(isAdultGetter).toHaveBeenCalledTimes(1);
+    expect(user.isAdult).toBe(true);
+    expect(isAdultGetter).toHaveBeenCalledTimes(2);
+    user.age = 17;
+    expect(user.isAdult).toBe(false);
+    expect(isAdultGetter).toHaveBeenCalledTimes(3);
   });
 
   test("should throw when it's not a getter", () => {
@@ -102,30 +122,39 @@ describe('@computed', () => {
 describe('vue components', () => {
   test('should react on changes in observables', async () => {
     createComponent();
-    expect(await render(comp)).toMatchSnapshot('before change');
+    expect(comp.find('#firstName').text()).toEqual('Chuck');
     user.firstName = 'John';
-    expect(await render(comp)).toMatchSnapshot('after change');
+    expect(comp.find('#firstName').text()).toEqual('John');
   });
 
   test('should react on changes in computed', async () => {
     createComponent();
-    expect(await render(comp)).toMatchSnapshot('before change');
-    user.age = 20;
-    expect(await render(comp)).toMatchSnapshot('after change');
+    expect(comp.find('#isAdult').text()).toEqual('yes');
+    user.age = 17;
+    expect(comp.find('#isAdult').text()).toEqual('no');
+  });
+
+  test('should not react on changes in non-reactive properties', async () => {
+    createComponent();
+    const defaultRoles = user.roles.join(', ');
+    expect(comp.find('#roles').text()).toEqual(defaultRoles);
+    user.roles.push('admin');
+    expect(comp.find('#roles').text()).toEqual(defaultRoles);
+    user.roles = ['foo'];
+    expect(comp.find('#roles').text()).toEqual(defaultRoles);
   });
 
   test("component's computed properties should react on changes in model's observables", async () => {
     createComponent();
-    expect(await render(comp)).toMatchSnapshot('before change');
-    user.lastName = 'Norris';
-    expect(await render(comp)).toMatchSnapshot('after change');
+    expect(comp.find('#id').text()).toEqual('chuck-norris-true');
+    user.lastName = 'Palahniuk';
+    expect(comp.find('#id').text()).toEqual('chuck-palahniuk-true');
   });
 
   test("component's computed properties should react on changes in model's computed", async () => {
     createComponent();
-    expect(await render(comp)).toMatchSnapshot('before change');
-    user.age = 20;
-    expect(await render(comp)).toMatchSnapshot('after change');
+    expect(comp.find('#id').text()).toEqual('chuck-norris-true');
+    user.age = 17;
+    expect(comp.find('#id').text()).toEqual('chuck-norris-false');
   });
 });
-
