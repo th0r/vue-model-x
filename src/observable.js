@@ -18,7 +18,7 @@ export function observable(proto, name, descriptor) {
       if (this.hasOwnProperty(observableValues) && name in this[observableValues]) {
         value = this[observableValues][name];
       } else {
-        value = descriptor.initializer();
+        value = descriptor.initializer ? descriptor.initializer() : undefined;
         saveObservableValue(this, name, value);
       }
 
