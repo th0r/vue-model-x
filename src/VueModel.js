@@ -24,10 +24,12 @@ export class VueModel {
     }
 
     if (typeof callback === 'string') {
-      callback = this[callback];
+      const methodName = callback;
+
+      callback = this[methodName];
 
       if (!isFunction(callback)) {
-        throw new TypeError(`VueModel#watch: Model doesn't have "${callback}" method`);
+        throw new TypeError(`VueModel#watch: Model doesn't have "${methodName}" method`);
       }
     }
 
