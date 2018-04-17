@@ -1,4 +1,6 @@
-import {Observer} from './vue-internals';
+import isFunction from 'lodash.isfunction';
+import {Observer, Watcher} from './vue-internals';
+import {defineWatchersProperty} from './utils';
 
 export class VueModel {
 
@@ -14,6 +16,30 @@ export class VueModel {
 
   update(data) {
     Object.assign(this, data);
+  }
+
+  watch(expression, callback, options) {
+    if (!this.hasOwnProperty('_watchers')) {
+      defineWatchersProperty(this);
+    }
+
+    if (typeof callback === 'string') {
+      callback = this[callback];
+
+      if (!isFunction(callback)) {
+        throw new TypeError(`VueModel#watch: Model doesn't have "${callback}" method`);
+      }
+    }
+
+    const watcher = new Watcher(this, expression, callback, options);
+
+    if (options && options.immediate) {
+      callback.call(this, watcher.value);
+    }
+
+    return () => {
+      watcher.teardown();
+    };
   }
 
 }

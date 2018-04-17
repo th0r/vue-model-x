@@ -1,6 +1,6 @@
 {
   "name": "vue-model-x",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "MobX-like state management library for Vue.js",
   "main": "./dist/vue-model-x.js",
   "module": "./dist/vue-model-x.esm.js",
@@ -35,12 +35,16 @@
     "eslint": "4.19.1",
     "eslint-config-th0r": "1.0.1",
     "jest": "22.4.3",
+    "lodash.isfunction": "3.0.9",
     "rollup": "0.57.1",
     "rollup-plugin-babel": "4.0.0-beta.0",
+    "rollup-plugin-commonjs": "9.1.0",
+    "rollup-plugin-node-resolve": "3.3.0",
     "vue": "^2.5.16",
     "vue-template-compiler": "2.5.16"
   },
   "files": [
     "dist/*.*"
-  ]
+  ],
+  "dependencies": {}
 }

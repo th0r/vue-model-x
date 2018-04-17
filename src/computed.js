@@ -1,4 +1,5 @@
 import {Dep, Watcher} from './vue-internals';
+import {defineWatchersProperty} from './utils';
 
 const computedWatchers = Symbol('computedWatchers');
 /* istanbul ignore next */
@@ -23,7 +24,7 @@ export function computed(prototype, getterName, descriptor) {
 
       if (!this.hasOwnProperty(computedWatchers)) {
         // Needed by Vue's `Watcher` constructor
-        this._watchers = [];
+        defineWatchersProperty(this);
         this[computedWatchers] = new Map();
       }
 
