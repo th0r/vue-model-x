@@ -1,6 +1,6 @@
 {
   "name": "vue-model-x",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "MobX-like state management library for Vue.js",
   "main": "./dist/vue-model-x.js",
   "module": "./dist/vue-model-x.esm.js",
