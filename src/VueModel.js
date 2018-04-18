@@ -1,6 +1,6 @@
 import isFunction from 'lodash.isfunction';
-import {Observer, Watcher} from './vue-internals';
-import {defineWatchersProperty} from './utils';
+import {Watcher} from './vue-internals';
+import {defineWatchersProperty, markAsStatic} from './utils';
 
 export class VueModel {
 
@@ -8,10 +8,7 @@ export class VueModel {
     // Tells Vue that it doesn't need to convert all properties of this object to reactive because
     // we explicitly mark reactive properties with `@observable` and `@computed` decorators.
     // All other properties shouldn't be reactive.
-    Object.defineProperty(this, '__ob__', {
-      enumerable: false,
-      value: new Observer({})
-    });
+    markAsStatic(this);
   }
 
   update(data) {
