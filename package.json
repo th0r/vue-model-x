@@ -2,10 +2,12 @@
   "name": "vue-model-x",
   "version": "0.4.0",
   "description": "MobX-like state management library for Vue.js",
-  "main": "./dist/vue-model-x.js",
-  "module": "./dist/vue-model-x.esm.js",
+  "main": "./lib/index.js",
+  "module": "./esm/index.js",
   "scripts": {
-    "build": "rm -rf dist && rollup -c",
+    "build": "npm run build:cjs && npm run build:esm",
+    "build:cjs": "babel --config-file ./.babelrc --delete-dir-on-start -d lib -- src",
+    "build:esm": "babel --config-file ./.babelrc-esm --delete-dir-on-start -d esm -- src",
     "prepublishOnly": "npm run build && npm test",
     "test": "jest"
   },
@@ -24,10 +26,11 @@
     "vue": "^2.5.16"
   },
   "devDependencies": {
-    "@babel/core": "7.0.0-beta.42",
-    "@babel/plugin-proposal-class-properties": "7.0.0-beta.42",
-    "@babel/plugin-proposal-decorators": "7.0.0-beta.42",
-    "@babel/preset-env": "7.0.0-beta.42",
+    "@babel/cli": "7.0.0-beta.44",
+    "@babel/core": "7.0.0-beta.44",
+    "@babel/plugin-proposal-class-properties": "7.0.0-beta.44",
+    "@babel/plugin-proposal-decorators": "7.0.0-beta.44",
+    "@babel/preset-env": "7.0.0-beta.44",
     "@vue/test-utils": "1.0.0-beta.13",
     "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "8.2.2",
@@ -35,16 +38,12 @@
     "eslint": "4.19.1",
     "eslint-config-th0r": "1.0.1",
     "jest": "22.4.3",
-    "lodash.isfunction": "3.0.9",
-    "rollup": "0.57.1",
-    "rollup-plugin-babel": "4.0.0-beta.0",
-    "rollup-plugin-commonjs": "9.1.0",
-    "rollup-plugin-node-resolve": "3.3.0",
     "vue": "^2.5.16",
     "vue-template-compiler": "2.5.16"
   },
   "files": [
-    "dist/*.*"
-  ],
-  "dependencies": {}
+    "src/*.*",
+    "lib/*.*",
+    "esm/*.*"
+  ]
 }

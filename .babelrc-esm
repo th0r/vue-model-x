@@ -1,0 +1,11 @@
+{
+  "extends": "./.babelrc",
+  "presets": [
+    ["@babel/preset-env", {
+      "modules": false,
+      "useBuiltIns": false,
+      "loose": true,
+      "forceAllTransforms": true
+    }]
+  ]
+}

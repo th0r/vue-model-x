@@ -1,7 +1,7 @@
-import {observable, computed, VueModel} from '../src';
+import {observable, computed, Model} from '../src';
 import {mount} from '@vue/test-utils';
 
-class User extends VueModel {
+class User extends Model {
   @observable firstName;
   @observable lastName;
   @observable age;

@@ -1,8 +1,7 @@
-import isFunction from 'lodash.isfunction';
 import {Watcher} from './vue-internals';
 import {defineWatchersProperty, markAsStatic} from './utils';
 
-export class VueModel {
+export class Model {
 
   constructor() {
     // Tells Vue that it doesn't need to convert all properties of this object to reactive because
@@ -25,8 +24,8 @@ export class VueModel {
 
       callback = this[methodName];
 
-      if (!isFunction(callback)) {
-        throw new TypeError(`VueModel#watch: Model doesn't have "${methodName}" method`);
+      if (typeof callback !== 'function') {
+        throw new TypeError(`VueModel#watch: model doesn't have "${methodName}" method`);
       }
     }
 
