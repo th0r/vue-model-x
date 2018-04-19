@@ -1,6 +1,10 @@
 import {Observer} from './vue-internals';
 
 export function defineWatchersProperty(obj) {
+  if (obj.hasOwnProperty('_watchers')) {
+    return;
+  }
+
   Object.defineProperty(obj, '_watchers', {
     value: [],
     enumerable: false
