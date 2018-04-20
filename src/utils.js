@@ -17,4 +17,6 @@ export function markAsStatic(obj) {
     enumerable: false,
     value: new Observer({})
   });
+
+  return obj;
 }
