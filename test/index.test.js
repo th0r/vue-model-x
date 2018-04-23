@@ -1,5 +1,6 @@
-import {observable, computed, Model} from '../src';
+import Vue from 'vue';
 import {mount} from '@vue/test-utils';
+import {observable, computed, Model} from '../src';
 
 class User extends Model {
   @observable firstName;
@@ -50,7 +51,7 @@ const createUser = () => user = new User({
   roles: ['karate-god']
 });
 const createComponent = (user = createUser()) => {
-  comp = mount(UserComponent, {propsData: {user}});
+  comp = mount(UserComponent, {propsData: {user}, sync: false});
 };
 
 describe('@observable', () => {
@@ -84,7 +85,7 @@ describe('@computed', () => {
     expect(Object.keys(user)).not.toContain('isAdult');
   });
 
-  test('should cache computed value if in reactive context', function () {
+  test('should cache computed value if in reactive context', async function () {
     const user = createUser();
     const isAdultGetter = user._getIsAdult = jest.fn(user._getIsAdult.bind(user));
     createComponent(user);
@@ -92,8 +93,10 @@ describe('@computed', () => {
     comp.vm.$forceUpdate();
     expect(isAdultGetter).toHaveBeenCalledTimes(1);
     user.firstName = 'Foo';
+    await Vue.nextTick();
     expect(isAdultGetter).toHaveBeenCalledTimes(1);
     user.age = 17;
+    await Vue.nextTick();
     expect(isAdultGetter).toHaveBeenCalledTimes(2);
   });
 
@@ -124,6 +127,7 @@ describe('vue components', () => {
     createComponent();
     expect(comp.find('#firstName').text()).toEqual('Chuck');
     user.firstName = 'John';
+    await Vue.nextTick();
     expect(comp.find('#firstName').text()).toEqual('John');
   });
 
@@ -131,6 +135,7 @@ describe('vue components', () => {
     createComponent();
     expect(comp.find('#isAdult').text()).toEqual('yes');
     user.age = 17;
+    await Vue.nextTick();
     expect(comp.find('#isAdult').text()).toEqual('no');
   });
 
@@ -139,8 +144,10 @@ describe('vue components', () => {
     const defaultRoles = user.roles.join(', ');
     expect(comp.find('#roles').text()).toEqual(defaultRoles);
     user.roles.push('admin');
+    await Vue.nextTick();
     expect(comp.find('#roles').text()).toEqual(defaultRoles);
     user.roles = ['foo'];
+    await Vue.nextTick();
     expect(comp.find('#roles').text()).toEqual(defaultRoles);
   });
 
@@ -148,6 +155,7 @@ describe('vue components', () => {
     createComponent();
     expect(comp.find('#id').text()).toEqual('chuck-norris-true');
     user.lastName = 'Palahniuk';
+    await Vue.nextTick();
     expect(comp.find('#id').text()).toEqual('chuck-palahniuk-true');
   });
 
@@ -155,6 +163,7 @@ describe('vue components', () => {
     createComponent();
     expect(comp.find('#id').text()).toEqual('chuck-norris-true');
     user.age = 17;
+    await Vue.nextTick();
     expect(comp.find('#id').text()).toEqual('chuck-norris-false');
   });
 });

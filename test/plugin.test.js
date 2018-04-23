@@ -81,11 +81,12 @@ describe('Vue plugin', function () {
     expect(comp.vm.$app).not.toBeDefined();
   });
 
-  it('component should react to changes in stores', function () {
+  it('component should react to changes in stores', async function () {
     Vue.use(VuePlugin);
     mountComponent();
     expect(comp.text()).toEqual('1');
     comp.vm.$app.stores.foo.bar = 2;
+    await Vue.nextTick();
     expect(comp.text()).toEqual('2');
   });
 
@@ -145,6 +146,6 @@ describe('Vue plugin', function () {
   });
 
   function mountComponent() {
-    comp = mount(TestComponent, {localVue: Vue});
+    comp = mount(TestComponent, {localVue: Vue, sync: false});
   }
 });
