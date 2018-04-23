@@ -1,0 +1,24 @@
+{
+  "ignore": {
+    "@babel/cli": {
+      "versions": "7.0.0-beta.46",
+      "reason": "Breaks ESM build"
+    },
+    "@babel/core": {
+      "versions": "7.0.0-beta.46",
+      "reason": "Breaks ESM build"
+    },
+    "@babel/plugin-proposal-class-properties": {
+      "versions": "7.0.0-beta.46",
+      "reason": "Breaks ESM build"
+    },
+    "@babel/plugin-proposal-decorators": {
+      "versions": "7.0.0-beta.46",
+      "reason": "Breaks ESM build"
+    },
+    "@babel/preset-env": {
+      "versions": "7.0.0-beta.46",
+      "reason": "Breaks ESM build"
+    }
+  }
+}
