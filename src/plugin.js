@@ -1,11 +1,14 @@
 import {AppContainer} from './AppContainer';
 
-export function vueModelXPlugin(Vue, opts = {}) {
-  let {appContainer} = opts;
-  const appContainerProp = opts.injectProperty || '$app';
-
+export function vueModelXPlugin(Vue,
+  {
+    appContainer,
+    state,
+    injectProperty = '$app'
+  } = {}
+) {
   if (!appContainer) {
-    appContainer = new AppContainer(opts.state);
+    appContainer = new AppContainer(state);
   }
 
   Vue.mixin({
@@ -13,9 +16,9 @@ export function vueModelXPlugin(Vue, opts = {}) {
     beforeCreate() {
       const {stores} = this.$options;
 
-      this[appContainerProp] = appContainer;
-
       if (stores) {
+        this[injectProperty] = appContainer;
+
         for (const propName of Object.keys(stores)) {
           this[propName] = appContainer.getStore(stores[propName]);
         }
