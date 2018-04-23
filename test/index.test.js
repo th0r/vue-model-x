@@ -1,4 +1,5 @@
-import {observable, computed, Model} from '../src';
+import {observable, computed, store, Model} from '../src';
+import {storeMeta} from '../src/storeDecorator';
 import {mount} from '@vue/test-utils';
 
 class User extends Model {

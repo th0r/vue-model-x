@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AppContainer #getStore should throw if store class doesn't contain metadata 1`] = `
+"VueModelX: couldn't find store meta information for \\"InvalidStore\\" class.
+Did you forget to decorate it with \`@store\`?"
+`;
+
+exports[`AppContainer #getStore should throw if there is a store state but store doesn't implement \`init\` method 1`] = `"VueModelX: there is a serialized state for \\"foo\\" store but it doesn't implement \\"init\\" method"`;
