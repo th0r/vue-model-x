@@ -1,3 +1,5 @@
+import {Store} from './Store';
+
 export const storeMeta = Symbol('VueModelXStoreMeta');
 
 export function store(meta) {
@@ -11,6 +13,10 @@ export function store(meta) {
 
     if (!meta.name) {
       throw new TypeError(`VueModelX: you must provide store name for "${cls.name}" class`);
+    }
+
+    if (!(cls.prototype instanceof Store)) {
+      throw new TypeError(`VueModelX: "${cls.name}" class must extend "Store" class`);
     }
 
     Object.defineProperty(cls, storeMeta, {

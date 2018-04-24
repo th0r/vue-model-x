@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Model #watch should throw if callback is a method name and this method doesn't exist 1`] = `"VueModel#watch: model doesn't have \\"nonExistingMethod\\" method"`;

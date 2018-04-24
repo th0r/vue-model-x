@@ -1,5 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`@store should throw an error if decorator is called without options 1`] = `"VueModelX: you must provide options for \\"@store\\" decorator with at least \\"name\\" property for \\"Store\\" class"`;
+exports[`@store should throw an error if class doesn't extend \`Store\` 1`] = `"VueModelX: \\"FooStore\\" class must extend \\"Store\\" class"`;
 
-exports[`@store should throw an error if decorator options don't provide store name 1`] = `"VueModelX: you must provide store name for \\"Store\\" class"`;
+exports[`@store should throw an error if decorator is called without options 1`] = `"VueModelX: you must provide options for \\"@store\\" decorator with at least \\"name\\" property for \\"FooStore\\" class"`;
+
+exports[`@store should throw an error if decorator options don't provide store name 1`] = `"VueModelX: you must provide store name for \\"FooStore\\" class"`;

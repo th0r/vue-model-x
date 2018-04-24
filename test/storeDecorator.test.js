@@ -1,11 +1,11 @@
-import {store} from '../src';
+import {Store, store} from '../src';
 import {storeMeta} from '../src/storeDecorator';
 
 describe('@store', () => {
   it('should throw an error if decorator is called without options', () => {
     function createStore() {
       return @store()
-      class Store {};
+      class FooStore extends Store {};
     }
 
     expect(createStore).toThrowErrorMatchingSnapshot();
@@ -14,7 +14,16 @@ describe('@store', () => {
   it("should throw an error if decorator options don't provide store name", () => {
     function createStore() {
       return @store({deps: {}})
-      class Store {};
+      class FooStore extends Store {};
+    }
+
+    expect(createStore).toThrowErrorMatchingSnapshot();
+  });
+
+  it("should throw an error if class doesn't extend `Store`", () => {
+    function createStore() {
+      return @store({name: 'Foo'})
+      class FooStore {};
     }
 
     expect(createStore).toThrowErrorMatchingSnapshot();
@@ -26,8 +35,8 @@ describe('@store', () => {
     };
 
     @store(meta)
-    class Store {};
+    class FooStore extends Store {};
 
-    expect(Store[storeMeta]).toEqual(meta);
+    expect(FooStore[storeMeta]).toEqual(meta);
   });
 });

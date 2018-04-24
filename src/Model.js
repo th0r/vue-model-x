@@ -14,7 +14,7 @@ export class Model {
     Object.assign(this, data);
   }
 
-  watch(expression, callback, options) {
+  watch(expression, callback, options = {}) {
     if (!this.hasOwnProperty('_watchers')) {
       defineWatchersProperty(this);
     }
@@ -29,9 +29,12 @@ export class Model {
       }
     }
 
+    options.lazy = false;
+    options.user = false;
+
     const watcher = new Watcher(this, expression, callback, options);
 
-    if (options && options.immediate) {
+    if (options.immediate) {
       callback.call(this, watcher.value);
     }
 

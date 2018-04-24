@@ -4,6 +4,7 @@ export class User extends Model {
   @observable firstName = '';
   @observable lastName = '';
   @observable age = null;
+  @observable address;
   // Non-reactive property
   roles = [];
 
