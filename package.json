@@ -6,8 +6,8 @@
   "module": "./esm/index.js",
   "scripts": {
     "build": "npm run build:cjs && npm run build:esm",
-    "build:cjs": "babel --config-file ./.babelrc --delete-dir-on-start -d lib -- src",
-    "build:esm": "babel --config-file ./.babelrc-esm --delete-dir-on-start -d esm -- src",
+    "build:cjs": "babel --config-file ./babel.config.js --delete-dir-on-start -d lib -- src",
+    "build:esm": "babel --config-file ./babel.config.esm.js --delete-dir-on-start -d esm -- src",
     "prepublishOnly": "npm run build && npm test",
     "test": "jest"
   },
@@ -26,20 +26,20 @@
     "vue": "^2.5.16"
   },
   "devDependencies": {
-    "@babel/cli": "7.0.0-beta.44",
-    "@babel/core": "7.0.0-beta.44",
-    "@babel/plugin-proposal-class-properties": "7.0.0-beta.44",
-    "@babel/plugin-proposal-decorators": "7.0.0-beta.44",
-    "@babel/preset-env": "7.0.0-beta.44",
-    "@vue/test-utils": "1.0.0-beta.15",
+    "@babel/cli": "7.1.2",
+    "@babel/core": "7.1.2",
+    "@babel/plugin-proposal-class-properties": "7.1.0",
+    "@babel/plugin-proposal-decorators": "7.1.2",
+    "@babel/preset-env": "7.1.0",
+    "@vue/test-utils": "1.0.0-beta.25",
     "babel-core": "7.0.0-bridge.0",
-    "babel-eslint": "8.2.3",
-    "babel-jest": "22.4.3",
+    "babel-eslint": "10.0.1",
+    "babel-jest": "23.6.0",
     "eslint": "4.19.1",
     "eslint-config-th0r": "1.0.1",
-    "jest": "22.4.3",
-    "vue": "^2.5.16",
-    "vue-template-compiler": "2.5.16"
+    "jest": "23.6.0",
+    "vue": "^2.5.17",
+    "vue-template-compiler": "2.5.17"
   },
   "files": [
     "src/*.*",
