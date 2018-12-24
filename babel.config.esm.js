@@ -1,7 +1,7 @@
-const commonConfig = require('./babel.config');
-const presetEnvConfig = commonConfig.presets.find(preset => preset[0] === '@babel/preset-env')[1];
+const {presetEnvConfig} = require('./babel.config');
 
 module.exports = {
+  extends: './babel.config.js',
   presets: [
     ['@babel/preset-env', {
       ...presetEnvConfig,
