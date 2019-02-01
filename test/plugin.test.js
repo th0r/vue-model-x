@@ -1,5 +1,5 @@
 import {createLocalVue, mount} from '@vue/test-utils';
-import VuePlugin, {AppContainer, observable, store, Store} from '../src';
+import {vueModelXPlugin as VuePlugin, AppContainer, observable, store, Store} from '../src';
 
 describe('Vue plugin', function () {
   let Vue;

@@ -1,13 +1,15 @@
 module.exports = config;
 
-config.presetEnvConfig = {
-  modules: 'commonjs',
-  targets: {
-    ie: 11
+const minNodeVersion = Number(require('./package.json').engines.node.match(/\d+/)[0]);
+
+Object.assign(config, {
+  presetEnvConfig: {
+    modules: false,
+    useBuiltIns: false,
+    loose: true
   },
-  useBuiltIns: false,
-  loose: true
-};
+  minNodeVersion
+});
 
 function config(api) {
   // Cache the returned value forever and don't call this function again.
@@ -22,7 +24,7 @@ function config(api) {
         presets: [
           ['@babel/preset-env', {
             targets: {
-              node: 'current'
+              node: minNodeVersion
             }
           }]
         ],
