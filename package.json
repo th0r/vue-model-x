@@ -28,23 +28,23 @@
   "author": "th0r",
   "license": "ISC",
   "peerDependencies": {
-    "vue": ">= 2.5"
+    "vue": ">=2.6"
   },
   "devDependencies": {
-    "@babel/cli": "7.2.3",
-    "@babel/core": "7.2.2",
-    "@babel/plugin-proposal-class-properties": "7.3.0",
-    "@babel/plugin-proposal-decorators": "7.3.0",
-    "@babel/preset-env": "7.3.1",
-    "@vue/test-utils": "1.0.0-beta.28",
+    "@babel/cli": "7.10.1",
+    "@babel/core": "7.10.2",
+    "@babel/plugin-proposal-class-properties": "7.10.1",
+    "@babel/plugin-proposal-decorators": "7.10.1",
+    "@babel/preset-env": "7.10.2",
+    "@vue/test-utils": "1.0.3",
     "babel-core": "7.0.0-bridge.0",
-    "babel-eslint": "10.0.1",
-    "babel-jest": "24.0.0",
-    "eslint": "4.19.1",
-    "eslint-config-th0r": "1.0.1",
-    "jest": "24.0.0",
-    "vue": ">= 2.5",
-    "vue-template-compiler": ">= 2.5"
+    "babel-eslint": "10.1.0",
+    "babel-jest": "26.0.1",
+    "eslint": "5.13.0",
+    "eslint-config-th0r": "2.0.0",
+    "jest": "26.0.1",
+    "vue": ">=2.6",
+    "vue-template-compiler": ">=2.6"
   },
   "files": [
     "src/**",

@@ -1,4 +1,5 @@
 import {mount} from '@vue/test-utils';
+import Vue from 'vue';
 import {defineWatchersProperty} from '../src/utils';
 import {markAsStatic} from '../src';
 
@@ -37,7 +38,7 @@ describe('utils', function () {
       expect(markAsStatic(obj)).toBe(obj);
     });
 
-    it('Vue should not react to changes in object marked as static', function () {
+    it('should not make Vue react to changes in object marked as static', async function () {
       const TestComponent = {
         template: `
           <div>
@@ -70,9 +71,11 @@ describe('utils', function () {
       expect(comp.find('#static').text()).toEqual('1-1');
       comp.vm.reactiveObj.prop = 2;
       comp.vm.reactiveObj.nested.prop = 2;
+      await Vue.nextTick();
+      expect(comp.find('#reactive').text()).toEqual('2-2');
       comp.vm.staticObj.prop = 2;
       comp.vm.staticObj.nested.prop = 2;
-      expect(comp.find('#reactive').text()).toEqual('2-2');
+      await Vue.nextTick();
       expect(comp.find('#static').text()).toEqual('1-1');
     });
 
